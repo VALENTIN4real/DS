@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste clients{% endblock %}
+
+{% block body %}
+{{parent()}}
+<div class="container-fluid">   
+        <div class="row justify-content-center">
+            <h1 class="text-center text-primary p-4">Liste des clients</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8 p-4 m-0 text-primary">
+            <div class="table-responsive">
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th scope="col">Code Client</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col">Rue</th>
+        <th scope="col">Ville</th>
+        <th scope="col">Code Postal</th>
+    </tr>
+  </thead>
+  <tbody>
+            {% for client in clients %}
+             <tr class="{{ cycle(['table-primary', 'table-secondary'], loop.index0) }}">
+                <td>{{client.codeClient |capitalize}}</td>
+                <td>{{client.nomClient |capitalize }}</td>
+                <td>{{client.prenomClient |capitalize}}</td>
+                <td>{{client.telClient |capitalize}}</td>
+                <td>{{client.rueClient |capitalize}}</td>
+                <td>{{client.villeClient |capitalize}}</td>
+                <td>{{client.codePostalClient |capitalize}}</td>
+            </tr>
+               
+            {% endfor %}
+ </tbody>
+</table>
+</div>
+            </div>
+        </div>
+</div>
+{% endblock %}   

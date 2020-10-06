@@ -5,3 +5,11 @@ index:
 ajout:
     path: /ajout
     controller: App\Controller\AjoutClientController::index
+
+modif:
+    path: /modif
+    controller: App\Controller\AjoutClientController::modifClient
+
+liste:
+    path: /liste
+    controller: App\Controller\AjoutClientController:listeClients
