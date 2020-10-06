@@ -1,0 +1,7 @@
+index:
+    path: /
+    controller: App\Controller\StaticController::index
+
+ajout:
+    path: /ajout
+    controller: App\Controller\AjoutClientController::index
