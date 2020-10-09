@@ -13,7 +13,6 @@ class ModifClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codeClient')
             ->add('nomClient')
             ->add('prenomClient')
             ->add('rueClient')

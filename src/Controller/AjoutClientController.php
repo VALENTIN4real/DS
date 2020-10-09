@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Client;
 use App\Form\AjoutClientType;
+use App\Form\ModifClientType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AjoutClientController extends AbstractController
@@ -46,6 +47,16 @@ class AjoutClientController extends AbstractController
         $em = $this->getDoctrine();
         $repoClient = $em->getRepository(Client::class);   
 
+        if ($request->get('supp')!=null){
+            $client = $repoClient->find($request->get('supp'));
+
+            if ($client!=null){
+                $em->getManager()->remove($client);
+                $em->getManager()->flush();
+            }
+
+            return $this->redirectToRoute('liste_clients');
+        }
         $clients = $repoClient->findBy(array(),array('nomClient'=>'ASC'));
         return $this->render('client/liste_clients.html.twig', [
            'clients'=>$clients
@@ -64,10 +75,10 @@ class AjoutClientController extends AbstractController
 
         if($client==null){
             $this->addFlash('notice', "Ce client n'existe pas");
-            return $this->redirectToRoute('liste_client');
+            return $this->redirectToRoute('liste_clients');
         }
 
-        $form = $this->createForm(ModifClientType::class,$theme);
+        $form = $this->createForm(ModifClientType::class,$client);
 
         if ($request->isMethod('POST')) {            
             $form->handleRequest($request);            
@@ -79,7 +90,7 @@ class AjoutClientController extends AbstractController
                 $this->addFlash('notice', 'client modifié');
 
             }
-            return $this->redirectToRoute('liste_client');
+            return $this->redirectToRoute('liste_clients');
         }        
 
         return $this->render('client/modif_client.html.twig', [
